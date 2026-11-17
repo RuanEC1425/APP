@@ -1,29 +1,40 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import AdminLayout from '/Users/Ruan Emanuel/Desktop/Consultoria/APP/src/app-web-consultoria/src/components/Layout'; // Ajuste o caminho se necessário
+
+
+// Imports relativos!
+import AdminLayout from '../components/Layout'; 
 import Registrar from './registrar';
 import Calendario from './calendario';
-import './index.tsx';
-import '/Users/Ruan Emanuel/Desktop/Consultoria/APP/src/app-web-consultoria/index.css';
+import Alunos from './alunos';
+import Formulario from './formulario';
+import Pagamentos from './pagamentos';
+import Treinos from './treinos';
+import DashboardOverview from './index';
+import NovoTreino from './NovoTreino';
+import AlunoPerfil from './AlunoPerfil';
+import FormularioVisualizar from './FormularioVisualizar';
+import Definicoes from './definicoes';
+import '../index.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<AdminLayout />}>
-          {/* Rota inicial / Home vazia */}
-          <Route index element={
-            <div className="opacity-20 flex flex-col items-center justify-center w-full h-full">
-               <svg width="200" height="200" viewBox="0 0 100 100" className="text-red-600">
-                <polygon points="50,5 95,25 95,75 50,95 5,75 5,25" fill="none" stroke="currentColor" strokeWidth="2"/>
-                <path d="M60,10 L45,50 L65,50 L40,90 L50,50 L35,50 Z" fill="currentColor"/>
-              </svg>
-            </div>
-          } />
-          <Route path="registrar" element={<Registrar />} />
-          <Route path="calendario" element={<Calendario />} />
-          {/* Adicionaremos as outras rotas depois */}
+           <Route index element={<DashboardOverview />} />
+           <Route path="registrar" element={<Registrar />} />
+           <Route path="calendario" element={<Calendario />} />
+           <Route path="alunos" element={<Alunos />} />
+           <Route path="formularios" element={<Formulario />} />
+           <Route path="pagamentos" element={<Pagamentos />} />
+           <Route path="treinos" element={<Treinos />} />
+           <Route path="novo-treino" element={<NovoTreino />} />
+           <Route path="alunos/:id" element={<AlunoPerfil />} />
+           <Route path="formularios/:id" element={<FormularioVisualizar />} />
+           <Route path="definicoes" element={<Definicoes />} />
+           
         </Route>
       </Routes>
     </BrowserRouter>

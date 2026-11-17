@@ -1,4 +1,6 @@
 import { CreditCard, AlertCircle, CheckCircle2, Clock, Search, Filter, DollarSign, Download } from 'lucide-react';
+import RevenueChart from '../components/RevenueChart';
+import PlanosDonutChart from '../components/PlanosDonutChart';
 
 export default function Pagamentos() {
   // Dados simulados baseados no nosso DER (Tabelas Students_Profile e Subscriptions)
@@ -15,20 +17,20 @@ export default function Pagamentos() {
     switch (status) {
       case 'Em dia':
         return (
-          <span className="flex items-center gap-1 text-green-700 font-bold bg-green-100 px-3 py-1 rounded-full border border-green-300 text-xs uppercase tracking-wider w-fit">
-            <CheckCircle2 size={16} /> Em dia
+          <span className="flex items-center gap-1.5 text-emerald-400 font-medium bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20 text-[11px] w-fit">
+            <CheckCircle2 size={13} /> Em dia
           </span>
         );
       case 'Atrasado':
         return (
-          <span className="flex items-center gap-1 text-red-700 font-bold bg-red-100 px-3 py-1 rounded-full border border-red-300 text-xs uppercase tracking-wider w-fit">
-            <AlertCircle size={16} /> Atrasado
+          <span className="flex items-center gap-1.5 text-red-400 font-medium bg-red-500/10 px-2.5 py-1 rounded-full border border-red-500/20 text-[11px] w-fit">
+            <AlertCircle size={13} /> Atrasado
           </span>
         );
       case 'Pendente':
         return (
-          <span className="flex items-center gap-1 text-yellow-700 font-bold bg-yellow-100 px-3 py-1 rounded-full border border-yellow-300 text-xs uppercase tracking-wider w-fit">
-            <Clock size={16} /> Pendente
+          <span className="flex items-center gap-1.5 text-amber-400 font-medium bg-amber-500/10 px-2.5 py-1 rounded-full border border-amber-500/20 text-[11px] w-fit">
+            <Clock size={13} /> Pendente
           </span>
         );
       default:
@@ -40,89 +42,122 @@ export default function Pagamentos() {
     <div className="w-full max-w-7xl mx-auto space-y-6">
       
       {/* Cabeçalho */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-white border-2 border-black p-6 rounded-lg shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] gap-4">
-        <div className="flex items-center gap-3">
-          <CreditCard size={32} className="text-red-600" />
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="flex items-center gap-4">
+          <div className="p-2.5 rounded-lg bg-red-500/10 border border-red-500/20 text-red-500">
+            <CreditCard size={22} />
+          </div>
           <div>
-            <h2 className="text-2xl font-bold uppercase tracking-wider">Controle Financeiro</h2>
-            <p className="text-gray-500 font-medium">Gerencie assinaturas e vencimentos</p>
+            <h1 className="text-3xl font-bold text-white tracking-tight">Controle Financeiro</h1>
+            <p className="text-zinc-400 text-sm mt-1">Gerencie assinaturas e vencimentos</p>
           </div>
         </div>
         
         <div className="flex gap-3 w-full md:w-auto">
-          <div className="flex flex-1 items-center border-2 border-black rounded bg-gray-50 overflow-hidden">
-            <div className="p-2 text-gray-500"><Search size={20} /></div>
+          <div className="flex flex-1 items-center bg-[#18181b] border border-zinc-800 rounded-lg px-3 focus-within:border-red-500 transition-colors">
+            <Search size={16} className="text-zinc-500" />
             <input 
               type="text" 
               placeholder="Buscar aluno..." 
-              className="p-2 bg-transparent focus:outline-none w-full md:w-48 font-medium"
+              className="py-2 ml-2 bg-transparent text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none w-full md:w-48"
             />
           </div>
-          <button className="flex items-center justify-center gap-2 bg-black text-white px-4 py-2 rounded font-bold uppercase hover:bg-red-600 transition-colors">
-            <Download size={20} /> Relatório
+          <button className="flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors shadow-[0_0_15px_rgba(239,68,68,0.2)]">
+            <Download size={16} /> Relatório
           </button>
         </div>
       </div>
 
       {/* Cards de Resumo */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-white border-2 border-black p-4 rounded-lg shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-          <p className="text-gray-500 font-bold uppercase text-xs mb-1">Receita Prevista (Mês)</p>
-          <div className="flex items-center gap-2">
-            <DollarSign size={24} className="text-blue-600" />
-            <p className="text-2xl font-black">R$ 4.850,00</p>
+        <div className="bg-[#121214] border border-zinc-800/80 p-5 rounded-xl hover:border-zinc-700 transition-colors">
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-zinc-400 text-xs font-medium">Receita Prevista (Mês)</p>
+            <DollarSign size={16} className="text-zinc-500" />
           </div>
+          <p className="text-3xl font-bold text-white">R$ 4.850,00</p>
         </div>
         
-        <div className="bg-white border-2 border-black p-4 rounded-lg shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-l-4 border-l-green-500">
-          <p className="text-gray-500 font-bold uppercase text-xs mb-1">Pagamentos em Dia</p>
-          <p className="text-2xl font-black text-green-700">32 Alunos</p>
+        <div className="bg-[#121214] border border-zinc-800/80 p-5 rounded-xl hover:border-zinc-700 transition-colors">
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-zinc-400 text-xs font-medium">Pagamentos em Dia</p>
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          </div>
+          <p className="text-3xl font-bold text-white">32 <span className="text-sm font-medium text-emerald-400">Alunos</span></p>
         </div>
 
-        <div className="bg-white border-2 border-black p-4 rounded-lg shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-l-4 border-l-red-500">
-          <p className="text-gray-500 font-bold uppercase text-xs mb-1">Inadimplência</p>
-          <p className="text-2xl font-black text-red-700">3 Alunos</p>
+        <div className="bg-[#121214] border border-zinc-800/80 p-5 rounded-xl hover:border-zinc-700 transition-colors">
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-zinc-400 text-xs font-medium">Inadimplência</p>
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]"></span>
+          </div>
+          <p className="text-3xl font-bold text-white">3 <span className="text-sm font-medium text-red-400">Alunos</span></p>
         </div>
 
-        <div className="bg-white border-2 border-black p-4 rounded-lg shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-l-4 border-l-yellow-500">
-          <p className="text-gray-500 font-bold uppercase text-xs mb-1">Vencendo nos próximos 7 dias</p>
-          <p className="text-2xl font-black text-yellow-700">5 Alunos</p>
+        <div className="bg-[#121214] border border-zinc-800/80 p-5 rounded-xl hover:border-zinc-700 transition-colors">
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-zinc-400 text-xs font-medium">Vencendo nos próximos 7 dias</p>
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+          </div>
+          <p className="text-3xl font-bold text-white">5 <span className="text-sm font-medium text-amber-400">Alunos</span></p>
+        </div>
+      </div>
+
+      {/* Gráficos: Receita vs. Inadimplência e Distribuição de Planos */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 bg-[#121214] border border-zinc-800/80 rounded-xl p-6">
+          <div className="flex justify-between items-center mb-4">
+            <div>
+              <h3 className="text-zinc-100 font-medium">Faturamento vs. Inadimplência</h3>
+              <p className="text-xs text-zinc-500 mt-0.5">Últimos 12 meses</p>
+            </div>
+            <span className="text-xs text-zinc-500">12M · MRR</span>
+          </div>
+          <RevenueChart height={260} />
+        </div>
+
+        <div className="bg-[#121214] border border-zinc-800/80 rounded-xl p-6">
+          <div className="mb-4">
+            <h3 className="text-zinc-100 font-medium">Retenção por Plano</h3>
+            <p className="text-xs text-zinc-500 mt-0.5">Distribuição dos alunos ativos</p>
+          </div>
+          <PlanosDonutChart />
         </div>
       </div>
 
       {/* Tabela de Controle */}
-      <div className="bg-white border-2 border-black rounded-lg shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] overflow-hidden">
-        <div className="p-4 border-b-2 border-black flex justify-between items-center bg-gray-100">
-          <h3 className="font-bold text-lg uppercase tracking-wide">Status de Assinaturas</h3>
-          <button className="flex items-center gap-2 text-sm font-bold uppercase border-2 border-black px-3 py-1 rounded hover:bg-black hover:text-white transition-colors">
-            <Filter size={16} /> Filtrar Status
+      <div className="bg-[#121214] border border-zinc-800/80 rounded-xl overflow-hidden">
+        <div className="px-5 py-4 border-b border-zinc-800/80 flex justify-between items-center">
+          <h3 className="text-zinc-100 font-medium">Status de Assinaturas</h3>
+          <button className="flex items-center gap-2 text-xs font-medium text-zinc-400 border border-zinc-800 px-3 py-1.5 rounded-lg hover:text-zinc-100 hover:border-zinc-700 hover:bg-zinc-800/50 transition-colors">
+            <Filter size={14} /> Filtrar Status
           </button>
         </div>
         
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse whitespace-nowrap">
             <thead>
-              <tr className="border-b-2 border-black bg-white">
-                <th className="p-4 font-bold uppercase text-xs text-gray-600">Aluno</th>
-                <th className="p-4 font-bold uppercase text-xs text-gray-600">Plano Selecionado</th>
-                <th className="p-4 font-bold uppercase text-xs text-gray-600">Método</th>
-                <th className="p-4 font-bold uppercase text-xs text-gray-600">Data de Entrada</th>
-                <th className="p-4 font-bold uppercase text-xs text-gray-600">Vencimento</th>
-                <th className="p-4 font-bold uppercase text-xs text-gray-600">Status</th>
-                <th className="p-4 font-bold uppercase text-xs text-gray-600 text-center">Ação</th>
+              <tr className="border-b border-zinc-800/50 bg-zinc-900/50">
+                <th className="px-5 py-3 font-semibold uppercase tracking-wider text-[11px] text-zinc-500">Aluno</th>
+                <th className="px-5 py-3 font-semibold uppercase tracking-wider text-[11px] text-zinc-500">Plano Selecionado</th>
+                <th className="px-5 py-3 font-semibold uppercase tracking-wider text-[11px] text-zinc-500">Método</th>
+                <th className="px-5 py-3 font-semibold uppercase tracking-wider text-[11px] text-zinc-500">Data de Entrada</th>
+                <th className="px-5 py-3 font-semibold uppercase tracking-wider text-[11px] text-zinc-500">Vencimento</th>
+                <th className="px-5 py-3 font-semibold uppercase tracking-wider text-[11px] text-zinc-500">Status</th>
+                <th className="px-5 py-3 font-semibold uppercase tracking-wider text-[11px] text-zinc-500 text-center">Ação</th>
               </tr>
             </thead>
             <tbody>
               {pagamentosAlunos.map((item) => (
-                <tr key={item.id} className="border-b border-gray-200 hover:bg-gray-50 transition-colors">
-                  <td className="p-4 font-bold text-base">{item.aluno}</td>
-                  <td className="p-4 font-medium text-gray-700">{item.plano}</td>
-                  <td className="p-4 text-gray-600 font-medium">{item.forma}</td>
-                  <td className="p-4 text-gray-500 font-medium">{item.dataEntrada}</td>
-                  <td className="p-4 font-bold text-gray-800">{item.vencimento}</td>
-                  <td className="p-4">{renderStatus(item.status)}</td>
-                  <td className="p-4 text-center">
-                    <button className="text-xs font-bold uppercase border-2 border-black px-3 py-1 rounded hover:bg-black hover:text-white transition-colors">
+                <tr key={item.id} className="border-b border-zinc-800/50 last:border-0 hover:bg-zinc-800/30 transition-colors">
+                  <td className="px-5 py-4 font-medium text-sm text-zinc-100">{item.aluno}</td>
+                  <td className="px-5 py-4 text-sm text-zinc-300">{item.plano}</td>
+                  <td className="px-5 py-4 text-sm text-zinc-400">{item.forma}</td>
+                  <td className="px-5 py-4 text-sm text-zinc-500">{item.dataEntrada}</td>
+                  <td className="px-5 py-4 text-sm font-medium text-zinc-200">{item.vencimento}</td>
+                  <td className="px-5 py-4">{renderStatus(item.status)}</td>
+                  <td className="px-5 py-4 text-center">
+                    <button className="text-xs font-medium text-zinc-400 border border-zinc-800 px-3 py-1.5 rounded-lg hover:text-red-500 hover:border-red-500/50 hover:bg-red-500/10 transition-colors">
                       Gerenciar
                     </button>
                   </td>

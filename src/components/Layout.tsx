@@ -1,57 +1,96 @@
-// src/components/AdminLayout.tsx (ou onde estiver o seu layout)
-import { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import { Menu, User, FileText, Calendar, Users, Dumbbell, CreditCard, UserPlus } from 'lucide-react';
+import { Outlet, Link, useLocation } from 'react-router-dom';
+import { Search, Bell, Sun, LayoutDashboard, Activity, Users, UserPlus, Settings, FileText, Dumbbell } from 'lucide-react';
 
 export default function AdminLayout() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const location = useLocation();
 
   const menuItems = [
-    { name: 'REGISTRAR', icon: <UserPlus size={20} />, path: '/registrar' },
-    { name: 'CALENDÁRIO', icon: <Calendar size={20} />, path: '/calendario' },
-    { name: 'FORMULÁRIOS', icon: <FileText size={20} />, path: '/formularios' },
-    { name: 'PAGAMENTOS', icon: <CreditCard size={20} />, path: '/pagamentos' },
-    { name: 'ALUNOS', icon: <Users size={20} />, path: '/alunos' },
-    { name: 'TREINOS', icon: <Dumbbell size={20} />, path: '/treinos' },
+    { name: 'Visão Geral', icon: LayoutDashboard, path: '/' },
+    { name: 'Analytics', icon: Activity, path: '/pagamentos' },
+    { name: 'Relatórios', icon: FileText, path: '/formularios' },
+    { name: 'Alunos', icon: Users, path: '/alunos' },
+    { name: 'Novo Aluno', icon: UserPlus, path: '/registrar' },
+    { name: 'Treinos', icon: Dumbbell, path: '/treinos' },
+    { name: 'Definições', icon: Settings, path: '/definicoes' },
   ];
 
   return (
-    <div className="flex h-screen bg-gray-50 font-sans text-gray-900">
+    <div className="flex h-screen overflow-hidden bg-[#0c0c0e] text-zinc-300 font-sans">
       
-      <aside className={`${isSidebarOpen ? 'w-64' : 'w-0 hidden'} bg-white border-r-2 border-black flex flex-col transition-all duration-300`}>
-        <div className="p-6 border-b-2 border-black flex items-center gap-3">
-          <div className="p-2 border-2 border-black rounded-full">
-            <User size={24} />
-          </div>
-          <span className="font-bold tracking-wider">MUSCLE SCIENCE</span>
+      {/* Sidebar Lateral */}
+      <aside className="w-64 flex-shrink-0 border-r border-zinc-800/60 bg-[#121214] flex flex-col">
+        {/* Logótipo */}
+        <div className="h-16 flex items-center px-6 gap-3 border-b border-zinc-800/60">
+          <div className="bg-red-500 text-white font-bold p-1.5 rounded text-sm">R</div>
+          <span className="text-white font-bold tracking-wide">REC <span className="text-zinc-500 font-normal text-xs uppercase tracking-widest ml-1">Admin</span></span>
         </div>
 
-        <nav className="flex-1 flex flex-col">
-          {menuItems.map((item, index) => (
-            <Link 
-              key={index}
-              to={item.path}
-              className="flex items-center gap-3 p-4 border-b-2 border-black hover:bg-gray-100 transition-colors text-left font-semibold tracking-wide"
-            >
-              {item.icon}
-              {item.name}
-            </Link>
-          ))}
+        {/* Navegação */}
+        <nav className="flex-1 px-3 py-6 space-y-1">
+          {menuItems.map((item) => {
+            const isActive = item.path === '/'
+              ? location.pathname === '/'
+              : location.pathname === item.path || location.pathname.startsWith(`${item.path}/`);
+            return (
+              <Link
+                key={item.name}
+                to={item.path}
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${
+                  isActive 
+                    ? 'bg-red-500/10 text-red-500' 
+                    : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50'
+                }`}
+              >
+                <item.icon size={18} className={isActive ? 'text-red-500' : ''} />
+                <span className="font-medium text-sm">{item.name}</span>
+              </Link>
+            );
+          })}
         </nav>
+
+        {/* Módulo de Quota / Status (Baseado na imagem) */}
+        <div className="p-4 mx-3 mb-4 rounded-xl bg-zinc-800/30 border border-zinc-800/60">
+          <p className="text-sm text-zinc-100 font-medium mb-1">REC Pro</p>
+          <p className="text-xs text-zinc-500 mb-3">72% do limite utilizado</p>
+          <div className="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
+            <div className="h-full bg-red-500 w-[72%]"></div>
+          </div>
+        </div>
       </aside>
 
-      <main className="flex-1 flex flex-col relative overflow-hidden">
-        <header className="p-4 flex items-center">
-          <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-2 hover:bg-gray-200 rounded-md transition-colors">
-            <Menu size={32} />
-          </button>
+      {/* Área Principal de Conteúdo */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        
+        {/* Cabeçalho (Top Bar) */}
+        <header className="h-16 border-b border-zinc-800/60 bg-[#0c0c0e]/80 backdrop-blur-md flex items-center justify-between px-8">
+          <div className="flex items-center w-96 bg-[#18181b] border border-zinc-800 rounded-md px-3 py-1.5">
+            <Search size={16} className="text-zinc-500" />
+            <input 
+              type="text" 
+              placeholder="Pesquisar métricas, alunos..." 
+              className="bg-transparent border-none text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none ml-2 w-full"
+            />
+            <span className="text-[10px] bg-red-500/20 text-red-500 px-1.5 py-0.5 rounded font-bold tracking-wider">LIVE</span>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-zinc-400">19 Out, 2026</span>
+            <button className="p-2 text-zinc-400 hover:text-zinc-100 transition-colors"><Sun size={18} /></button>
+            <button className="p-2 text-zinc-400 hover:text-zinc-100 transition-colors relative">
+              <Bell size={18} />
+              <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+            <div className="w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-xs ml-2 cursor-pointer shadow-[0_0_10px_rgba(239,68,68,0.3)]">
+              RE
+            </div>
+          </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto p-8 flex justify-center">
-          {/* O Outlet é onde as páginas (Registrar, Calendário, etc) vão aparecer! */}
-          <Outlet /> 
-        </div>
-      </main>
+        {/* Conteúdo Dinâmico (Páginas) */}
+        <main className="flex-1 overflow-y-auto p-8">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 }

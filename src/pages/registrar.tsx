@@ -24,13 +24,22 @@ export default function Registrar() {
     alert('Aluno registrado com sucesso!');
   };
 
+  // Classes padrão dos campos no tema escuro
+  const fieldClass = 'w-full p-3 text-sm bg-[#18181b] border border-zinc-800 text-zinc-100 placeholder-zinc-600 rounded-lg focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500/30 transition-all';
+  const labelClass = 'block text-xs font-medium text-zinc-400 mb-2';
+
   return (
-    <div className="w-full max-w-4xl mx-auto bg-white border-2 border-black rounded-lg shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] overflow-hidden">
+    <div className="w-full max-w-4xl mx-auto bg-[#121214] border border-zinc-800/80 rounded-xl overflow-hidden">
       
       {/* Cabeçalho da Página */}
-      <div className="bg-gray-100 border-b-2 border-black p-6 flex items-center gap-3">
-        <UserPlus size={28} className="text-red-600" />
-        <h2 className="text-2xl font-bold uppercase tracking-wider">Registrar Novo Aluno</h2>
+      <div className="border-b border-zinc-800/80 p-6 flex items-center gap-4">
+        <div className="p-2.5 rounded-lg bg-red-500/10 border border-red-500/20 text-red-500">
+          <UserPlus size={22} />
+        </div>
+        <div>
+          <h1 className="text-2xl font-bold text-white tracking-tight">Registrar Novo Aluno</h1>
+          <p className="text-zinc-400 text-sm mt-0.5">Cadastre os dados pessoais e o plano contratado</p>
+        </div>
       </div>
 
       {/* Formulário */}
@@ -38,51 +47,51 @@ export default function Registrar() {
         
         {/* Seção 1: Dados Pessoais */}
         <div>
-          <h3 className="text-lg font-bold border-b-2 border-gray-200 pb-2 mb-4 flex items-center gap-2">
-            <UserPlus size={20} className="text-gray-500" />
+          <h3 className="text-sm font-medium text-zinc-100 border-b border-zinc-800/80 pb-3 mb-5 flex items-center gap-2">
+            <UserPlus size={16} className="text-zinc-500" />
             Dados Pessoais
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="col-span-2 md:col-span-1">
-              <label className="block text-sm font-bold text-gray-700 mb-2 uppercase">Nome Completo</label>
+              <label className={labelClass}>Nome Completo</label>
               <input 
                 type="text" name="nomeCompleto" required
                 value={formData.nomeCompleto}
                 onChange={handleChange}
-                className="w-full p-3 border-2 border-black rounded focus:outline-none focus:ring-2 focus:ring-red-600 transition-all"
+                className={fieldClass}
                 placeholder="Ex: João da Silva"
               />
             </div>
             
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2 uppercase">CPF</label>
+              <label className={labelClass}>CPF</label>
               <input 
                 type="text" name="cpf" required
                 value={formData.cpf}
                 onChange={handleChange}
-                className="w-full p-3 border-2 border-black rounded focus:outline-none focus:ring-2 focus:ring-red-600 transition-all"
+                className={fieldClass}
                 placeholder="000.000.000-00"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2 uppercase">Número de Telefone</label>
+              <label className={labelClass}>Número de Telefone</label>
               <input 
                 type="text" name="telefone" required
                 value={formData.telefone}
                 onChange={handleChange}
-                className="w-full p-3 border-2 border-black rounded focus:outline-none focus:ring-2 focus:ring-red-600 transition-all"
+                className={fieldClass}
                 placeholder="(00) 00000-0000"
               />
             </div>
 
             <div className="col-span-2">
-              <label className="block text-sm font-bold text-gray-700 mb-2 uppercase">Endereço Completo</label>
+              <label className={labelClass}>Endereço Completo</label>
               <input 
                 type="text" name="endereco" required
                 value={formData.endereco}
                 onChange={handleChange}
-                className="w-full p-3 border-2 border-black rounded focus:outline-none focus:ring-2 focus:ring-red-600 transition-all"
+                className={fieldClass}
                 placeholder="Rua, Número, Bairro, Cidade - Estado"
               />
             </div>
@@ -91,19 +100,19 @@ export default function Registrar() {
 
         {/* Seção 2: Plano e Pagamento */}
         <div>
-          <h3 className="text-lg font-bold border-b-2 border-gray-200 pb-2 mb-4 flex items-center gap-2">
-            <CreditCard size={20} className="text-gray-500" />
+          <h3 className="text-sm font-medium text-zinc-100 border-b border-zinc-800/80 pb-3 mb-5 flex items-center gap-2">
+            <CreditCard size={16} className="text-zinc-500" />
             Detalhes do Plano
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2 uppercase">Plano Selecionado</label>
+              <label className={labelClass}>Plano Selecionado</label>
               <select 
                 name="plano" 
                 value={formData.plano}
                 onChange={handleChange}
-                className="w-full p-3 border-2 border-black rounded focus:outline-none focus:ring-2 focus:ring-red-600 bg-white font-medium"
+                className={fieldClass}
               >
                 <option value="mensal">Mensal</option>
                 <option value="trimestral">Trimestral</option>
@@ -115,12 +124,12 @@ export default function Registrar() {
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2 uppercase">Forma de Pagamento</label>
+              <label className={labelClass}>Forma de Pagamento</label>
               <select 
                 name="formaPagamento" 
                 value={formData.formaPagamento}
                 onChange={handleChange}
-                className="w-full p-3 border-2 border-black rounded focus:outline-none focus:ring-2 focus:ring-red-600 bg-white font-medium"
+                className={fieldClass}
               >
                 <option value="pix">PIX</option>
                 <option value="cartao_credito">Cartão de Crédito</option>
@@ -132,12 +141,12 @@ export default function Registrar() {
         </div>
 
         {/* Botão de Salvar */}
-        <div className="pt-4 border-t-2 border-gray-200 flex justify-end">
+        <div className="pt-6 border-t border-zinc-800/80 flex justify-end">
           <button 
             type="submit"
-            className="flex items-center gap-2 bg-black text-white px-8 py-4 rounded font-bold uppercase tracking-wider hover:bg-red-600 transition-colors"
+            className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-6 py-3 rounded-lg transition-colors shadow-[0_0_15px_rgba(239,68,68,0.25)]"
           >
-            <Save size={20} />
+            <Save size={18} />
             Salvar Registro
           </button>
         </div>

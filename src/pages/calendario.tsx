@@ -11,16 +11,18 @@ export default function Calendario() {
     <div className="w-full max-w-5xl mx-auto space-y-6">
       
       {/* Cabeçalho */}
-      <div className="flex justify-between items-center bg-white border-2 border-black p-6 rounded-lg shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-        <div className="flex items-center gap-3">
-          <CalendarIcon size={32} className="text-red-600" />
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="flex items-center gap-4">
+          <div className="p-2.5 rounded-lg bg-red-500/10 border border-red-500/20 text-red-500">
+            <CalendarIcon size={22} />
+          </div>
           <div>
-            <h2 className="text-2xl font-bold uppercase tracking-wider">Agenda e Compromissos</h2>
-            <p className="text-gray-500 font-medium">Controle de diagnósticos e protocolos</p>
+            <h1 className="text-3xl font-bold text-white tracking-tight">Agenda e Compromissos</h1>
+            <p className="text-zinc-400 text-sm mt-1">Controle de diagnósticos e protocolos</p>
           </div>
         </div>
-        <button className="flex items-center gap-2 bg-black text-white px-4 py-2 rounded font-bold uppercase hover:bg-red-600 transition-colors">
-          <Plus size={20} /> Novo Evento
+        <button className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors shadow-[0_0_15px_rgba(239,68,68,0.2)]">
+          <Plus size={18} /> Novo Evento
         </button>
       </div>
 
@@ -28,37 +30,37 @@ export default function Calendario() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Coluna 1: Mini Calendário e Filtros (Layout Placeholder) */}
-        <div className="bg-white border-2 border-black rounded-lg p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-          <h3 className="font-bold text-lg border-b-2 border-gray-200 pb-2 mb-4">Agosto 2026</h3>
-          <div className="text-center p-8 border-2 border-dashed border-gray-300 text-gray-500 font-medium">
+        <div className="bg-[#121214] border border-zinc-800/80 rounded-xl p-6">
+          <h3 className="text-zinc-100 font-medium border-b border-zinc-800/80 pb-3 mb-4">Agosto 2026</h3>
+          <div className="text-center p-8 border border-dashed border-zinc-700 rounded-lg text-sm text-zinc-500">
             (Componente de Calendário Mensal entrará aqui)
           </div>
         </div>
 
         {/* Coluna 2 e 3: Lista de Eventos do Dia */}
-        <div className="lg:col-span-2 bg-white border-2 border-black rounded-lg p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-          <h3 className="font-bold text-lg border-b-2 border-gray-200 pb-2 mb-4">Compromissos de Hoje</h3>
+        <div className="lg:col-span-2 bg-[#121214] border border-zinc-800/80 rounded-xl p-6">
+          <h3 className="text-zinc-100 font-medium border-b border-zinc-800/80 pb-3 mb-4">Compromissos de Hoje</h3>
           
-          <div className="space-y-4">
+          <div className="space-y-3">
             {compromissosHoje.map((evento) => (
-              <div key={evento.id} className="flex items-center justify-between p-4 border-2 border-black rounded hover:bg-gray-50 transition-colors">
+              <div key={evento.id} className="flex items-center justify-between p-4 bg-[#18181b] border border-zinc-800 rounded-lg hover:border-red-500/40 transition-colors">
                 <div className="flex items-center gap-4">
-                  <div className="bg-gray-100 p-3 rounded-full border border-gray-300">
-                    <Clock size={20} className="text-gray-700" />
+                  <div className="bg-zinc-800/60 p-2.5 rounded-lg border border-zinc-700/60">
+                    <Clock size={18} className="text-zinc-400" />
                   </div>
                   <div>
-                    <p className="font-bold text-lg">{evento.hora}</p>
-                    <p className="text-sm font-medium text-red-600 uppercase tracking-wide">{evento.tipo}</p>
+                    <p className="font-semibold text-lg text-white">{evento.hora}</p>
+                    <p className="text-xs font-medium text-red-500 uppercase tracking-wider">{evento.tipo}</p>
                   </div>
                 </div>
                 
                 <div className="flex items-center gap-2">
-                  <User size={16} className="text-gray-500" />
-                  <span className="font-bold text-gray-700">{evento.aluno}</span>
+                  <User size={14} className="text-zinc-500" />
+                  <span className="text-sm font-medium text-zinc-300">{evento.aluno}</span>
                 </div>
 
                 <div>
-                  <button className="border-2 border-black px-4 py-1 text-sm font-bold uppercase hover:bg-black hover:text-white transition-colors">
+                  <button className="text-xs font-medium text-zinc-400 border border-zinc-800 px-3 py-1.5 rounded-lg hover:text-red-500 hover:border-red-500/50 hover:bg-red-500/10 transition-colors">
                     Ver Detalhes
                   </button>
                 </div>

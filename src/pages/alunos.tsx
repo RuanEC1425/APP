@@ -1,7 +1,9 @@
 import { Users, Search, Filter, TrendingUp, FileText, ArrowRight, Activity } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Alunos() {
+  const navigate = useNavigate();
   // Dados simulados da galeria
   const alunosGaleria = [
     {
@@ -43,65 +45,76 @@ export default function Alunos() {
     <div className="w-full max-w-7xl mx-auto space-y-6">
       
       {/* Cabeçalho */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-white border-2 border-black p-6 rounded-lg shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] gap-4">
-        <div className="flex items-center gap-3">
-          <Users size={32} className="text-red-600" />
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="flex items-center gap-4">
+          <div className="p-2.5 rounded-lg bg-red-500/10 border border-red-500/20 text-red-500">
+            <Users size={22} />
+          </div>
           <div>
-            <h2 className="text-2xl font-bold uppercase tracking-wider">Galeria de Alunos</h2>
-            <p className="text-gray-500 font-medium">Gerencie perfis e acompanhe evoluções</p>
+            <h1 className="text-3xl font-bold text-white tracking-tight">Galeria de Alunos</h1>
+            <p className="text-zinc-400 text-sm mt-1">Gerencie perfis e acompanhe evoluções</p>
           </div>
         </div>
         
         <div className="flex gap-3 w-full md:w-auto">
-          <div className="flex flex-1 items-center border-2 border-black rounded bg-gray-50 overflow-hidden">
-            <div className="p-2 text-gray-500"><Search size={20} /></div>
+          <div className="flex flex-1 items-center bg-[#18181b] border border-zinc-800 rounded-lg px-3 focus-within:border-red-500 transition-colors">
+            <Search size={16} className="text-zinc-500" />
             <input 
               type="text" 
               placeholder="Buscar pelo nome..." 
-              className="p-2 bg-transparent focus:outline-none w-full md:w-48 font-medium"
+              className="py-2 ml-2 bg-transparent text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none w-full md:w-48"
             />
           </div>
-          <button className="flex items-center justify-center p-2 bg-black text-white rounded hover:bg-gray-800 transition-colors">
-            <Filter size={24} />
+          <button className="flex items-center justify-center p-2.5 border border-zinc-800 bg-[#121214] text-zinc-400 rounded-lg hover:text-zinc-100 hover:border-zinc-700 transition-colors">
+            <Filter size={18} />
           </button>
         </div>
       </div>
 
       {/* Galeria / Grid de Perfis */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         
         {alunosGaleria.map((aluno) => (
           /* Container do Card com a classe 'group' para ativar efeitos de hover nos elementos internos */
-          <div key={aluno.id} className="group relative bg-white border-2 border-black rounded-lg h-72 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all overflow-hidden cursor-pointer">
+          <div key={aluno.id} className="group relative bg-[#121214] border border-zinc-800/80 rounded-xl h-72 hover:border-red-500/50 hover:shadow-[0_0_25px_rgba(239,68,68,0.12)] transition-all duration-300 overflow-hidden cursor-pointer">
             
             {/* ESTADO NORMAL (O que aparece antes de passar o mouse) */}
             <div className="absolute inset-0 p-6 flex flex-col items-center justify-center text-center transition-opacity duration-300 group-hover:opacity-0">
               <img 
                 src={aluno.foto} 
                 alt={`Foto de ${aluno.nome}`} 
-                className="w-24 h-24 rounded-full border-4 border-black mb-4 object-cover"
+                className="w-24 h-24 rounded-full border-2 border-zinc-700 ring-4 ring-zinc-800/50 mb-4 object-cover"
               />
-              <h3 className="text-xl font-black uppercase tracking-wide">{aluno.nome}</h3>
-              <p className="text-gray-500 font-bold uppercase text-sm mt-1">{aluno.plano}</p>
-              <div className="mt-4 bg-gray-100 border border-gray-300 px-3 py-1 rounded-full text-xs font-bold uppercase text-gray-600">
-                {aluno.objetivo}
+              <h3 className="text-lg font-semibold text-white tracking-tight">{aluno.nome}</h3>
+              <p className="text-zinc-500 text-xs font-medium uppercase tracking-widest mt-1">{aluno.plano}</p>
+              <div className="mt-4 flex items-center gap-2">
+                <span className="bg-zinc-800/60 border border-zinc-700/60 px-3 py-1 rounded-full text-[11px] font-medium text-zinc-300">
+                  {aluno.objetivo}
+                </span>
+                <span className={`px-3 py-1 rounded-full text-[11px] font-medium border ${
+                  aluno.noCaminho
+                    ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+                    : 'bg-red-500/10 text-red-400 border-red-500/20'
+                }`}>
+                  {aluno.noCaminho ? 'Na meta' : 'Acima da meta'}
+                </span>
               </div>
             </div>
 
             {/* ESTADO HOVER (A camada escura que sobe quando passa o mouse) */}
-            <div className="absolute inset-0 bg-gray-900 text-white p-6 flex flex-col justify-between translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out">
+            <div className="absolute inset-0 bg-[#18181b] p-6 flex flex-col justify-between translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out">
               
               <div className="space-y-4">
                 {/* Informação de Peso com Lógica de Cor */}
-                <div className="border-b border-gray-700 pb-3">
-                  <p className="text-gray-400 font-bold uppercase text-xs mb-1 flex items-center gap-1">
-                    <Activity size={14} /> Peso Atual vs Meta
+                <div className="border-b border-zinc-800 pb-4">
+                  <p className="text-zinc-500 font-medium uppercase tracking-wider text-[11px] mb-2 flex items-center gap-1.5">
+                    <Activity size={13} /> Peso Atual vs Meta
                   </p>
                   <div className="flex items-end gap-2">
-                    <span className={`text-3xl font-black ${aluno.noCaminho ? 'text-green-400' : 'text-red-400'}`}>
+                    <span className={`text-3xl font-bold ${aluno.noCaminho ? 'text-emerald-400' : 'text-red-400'}`}>
                       {aluno.pesoAtual}
                     </span>
-                    <span className="text-gray-500 font-medium text-sm mb-1">
+                    <span className="text-zinc-500 font-medium text-sm mb-1">
                       / {aluno.meta}
                     </span>
                   </div>
@@ -109,22 +122,22 @@ export default function Alunos() {
 
                 {/* Informação da Anamnese */}
                 <div>
-                  <p className="text-gray-400 font-bold uppercase text-xs mb-1 flex items-center gap-1">
-                    <FileText size={14} /> Anamnese Base
+                  <p className="text-zinc-500 font-medium uppercase tracking-wider text-[11px] mb-1.5 flex items-center gap-1.5">
+                    <FileText size={13} /> Anamnese Base
                   </p>
-                  <p className="font-bold text-gray-100">{aluno.anamnese}</p>
+                  <p className="font-medium text-zinc-100">{aluno.anamnese}</p>
                 </div>
               </div>
 
               {/* Botão/Link para a Sub-aba de Gráficos */}
               <button 
-                className="w-full flex items-center justify-between bg-red-600 text-white px-4 py-3 rounded border-2 border-transparent hover:bg-white hover:text-black hover:border-black font-bold uppercase tracking-wider transition-colors mt-auto"
-                onClick={() => console.log(`Abrir gráficos do aluno ${aluno.id}`)}
+                className="w-full flex items-center justify-between bg-red-500 hover:bg-red-600 text-white text-sm px-4 py-2.5 rounded-lg font-medium transition-colors shadow-[0_0_15px_rgba(239,68,68,0.25)] mt-auto"
+                onClick={() => navigate(`/alunos/${aluno.id}`)}
               >
                 <span className="flex items-center gap-2">
-                  <TrendingUp size={20} /> Ver Gráficos
+                  <TrendingUp size={18} /> Ver Gráficos
                 </span>
-                <ArrowRight size={20} />
+                <ArrowRight size={18} />
               </button>
 
             </div>
