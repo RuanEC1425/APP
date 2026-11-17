@@ -1,0 +1,17 @@
+export 'cli/sync_cli_runner.dart';
+export 'data/local_storage_repository.dart';
+export 'data/mock_repository.dart';
+export 'main.dart';
+export 'models/nutrition_models.dart';
+export 'models/profile_evolution_models.dart';
+export 'models/workout_models.dart';
+export 'screens/dieta_screen.dart';
+export 'screens/home_screen.dart';
+export 'screens/main_shell_screen.dart';
+export 'screens/treino_screen.dart';
+export 'screens/you_screen.dart';
+export 'state/app_state.dart';
+export 'state/recovery_calculator.dart';
+export 'theme/rec_theme.dart';
+export 'widgets/exercise_animation_widget.dart';
+export 'widgets/muscle_body_3d_widget.dart';
